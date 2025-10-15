@@ -4,10 +4,11 @@ import type React from "react"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ShieldCheck, Upload, LayoutDashboard, Home } from "lucide-react"
+import { ShieldCheck, Upload, LayoutDashboard, Home, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { DarkModeToggle } from "@/components/site/theme-toggle"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 
 export function Header() {
   const pathname = usePathname()
@@ -39,9 +40,23 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-2">
           <DarkModeToggle />
-          <Button asChild size="sm" className="md:hidden">
-            <Link href="/dashboard">Dashboard</Link>
-          </Button>
+          <SignedOut>
+            <Button asChild size="sm" variant="ghost" className="hidden md:inline-flex">
+              <Link href="/sign-in">Sign In</Link>
+            </Button>
+            <Button asChild size="sm">
+              <Link href="/sign-up">Get Started</Link>
+            </Button>
+          </SignedOut>
+          <SignedIn>
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "size-9",
+                },
+              }}
+            />
+          </SignedIn>
         </div>
       </div>
     </header>

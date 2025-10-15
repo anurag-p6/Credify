@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
+import { ClerkProvider } from "@clerk/nextjs"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { Header } from "@/components/site/header"
@@ -21,23 +22,25 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Suspense fallback={<div>Loading...</div>}>
-            <Header />
-            <main className="min-h-[calc(100vh-160px)]">{children}</main>
-            <Footer />
-            <Toaster />
-            <Analytics />
-          </Suspense>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Suspense fallback={<div>Loading...</div>}>
+              <Header />
+              <main className="min-h-[calc(100vh-160px)]">{children}</main>
+              <Footer />
+              <Toaster />
+              <Analytics />
+            </Suspense>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
