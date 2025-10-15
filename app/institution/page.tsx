@@ -162,7 +162,7 @@ export default function InstitutionUploadPage() {
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Required Fields:</span>
-                      <span className={validationResult.analysis.hasRequiredFields ? "text-green-600" : "text-red-600"}>
+                      <span className={validationResult.analysis.hasRequiredFields ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}>
                         {validationResult.analysis.hasRequiredFields ? "Pass" : "Fail"}
                       </span>
                     </div>
